@@ -16,7 +16,7 @@
 
     <div class="container-fluid">
         <div class="row d-flex justify-content-center">
-            <form>
+            <form id="form">
                 <div class="form-group">
                     <label for="username">Name:</label>
                     <input type="text" class="form-control" id="username" aria-describedby="name"
@@ -69,12 +69,13 @@
                         <div class="col-3">
                             <input type="number" class="form-control" placeholder="$">
                         </div>
-                        <div class="col">
-                            <button type="input" style="border:none; background-color:transparent"><i
-                                    class="fas fa-plus"></i></button>
-                        </div>
+                    </div>
+                    <div class="col">
+                        <button type="button" style="border:none; background-color:transparent"
+                            v-on:click="moreBills"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
+                <div id="moreBills"></div>
                 <button type="submit" class="btn btn-primary mt-2">Submit</button>
             </form>
         </div>
