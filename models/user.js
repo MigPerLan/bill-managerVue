@@ -5,10 +5,12 @@ const Schema = moongoose.Schema;
 const UserSchema = new Schema({
     user: {
         type: String,
+        required : true
        
     },
     amount: {
         type: Number,
+        required : true
        
     },
     savings: {
@@ -16,9 +18,11 @@ const UserSchema = new Schema({
     },
     payPeriod: {
         type: String,
+        required : true
    
     },
     bills: [{}]
+
 
 });
 
