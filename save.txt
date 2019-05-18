@@ -1,0 +1,12 @@
+ $.ajax({
+                method: 'POST',
+                url: "/user/",
+                data:{
+                    body:{
+                        user : this.name,
+                        amount : this.amount,
+                        savings : this.savings,
+                        payPeriod : this.payPeriod
+                    }
+                }
+            })

@@ -1,3 +1,4 @@
+
 Vue.component('user-form', {
     template: `
 <div>
@@ -51,7 +52,7 @@ Vue.component('user-form', {
         <div class= "col=2">
             <ul>
             <li v-for="bill in bills">
-            <p> {{ bill.billName }} {{ bill.billCost }} </p>
+            <p> {{ bill.billName }} {{ bill.billCost }}dollars </p>
             </li>
             </ul>
         </div>
@@ -74,16 +75,37 @@ Vue.component('user-form', {
         addBills(setBills) {
             this.bills.push(setBills);
         },
-        onSubmit(){
-            console.log(this.name);
-            console.log(this.amount);
-            console.log(this.savings);
-            console.log(this.payPeriod);
-            console.log(this.bills);
+        onSubmit() {
+            const user = this.name;
+            const amount = this.amount;
+            const savings = this.savings;
+            const payPeriod = this.payPeriod;
+            const bills = this.bills;
+            $.ajax({
+                method: 'POST',
+                url: "/user/",
+                data: {
+                    user: user,
+                    amount: amount,
+                    savings: savings,
+                    payPeriod: payPeriod,
+                    bills: bills
+                }
+            })
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(err => {
+                    if (err) console.log(err);
+
+                });
+
         }
 
     }
 });
+
+
 
 Vue.component('bills-form', {
     template: `
