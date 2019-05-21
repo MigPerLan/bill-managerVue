@@ -148,6 +148,43 @@ Vue.component('bills-form', {
     }
 })
 
+Vue.component('homepage', {
+    template: `
+    <div>
+    <div class="row">
+    <div class="col-sm-12 d-flex justify-content-center">
+        <h1>Total Spending Money</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 d-flex justify-content-center">
+        <h1 id="total">$560</h1>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-sm-6 d-flex justify-content-center">
+        <p id="biWeekly">Biweekly: $900</p>
+    </div>
+    <div class="col-sm-6 d-flex justify-content-center">
+        <p id="biWeekly">Monthly: $1800</p>
+    </div>
+</div>
+<div class="row d-flex justify-content-center mt-2">
+    <ul class="list-group">
+        <li class="list-group-item">Cras justo odio</li>
+        <li class="list-group-item">Dapibus ac facilisis in</li>
+        <li class="list-group-item">Morbi leo risus</li>
+        <li class="list-group-item">Porta ac consectetur ac</li>
+        <li class="list-group-item">Vestibulum at eros</li>
+    </ul>
+</div>
+<div class="row d-flex justify-content-center mt-2">
+    <h2>Total: $100</h2>
+</div>
+</div>
+    `
+})
+
 const app = new Vue({
     el: "#app"
 
