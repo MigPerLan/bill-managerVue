@@ -1,7 +1,7 @@
 {
 "name": "bill-managerVue",
 "version": "1.0.0",
-"description": ,
+"description": "like a checkbook but online",
 "main": "server.js",
 "dependencies": {
   "express": "^4.17.0",
