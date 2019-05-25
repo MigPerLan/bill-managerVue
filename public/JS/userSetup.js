@@ -5,11 +5,6 @@ Vue.component('user-form', {
 <div class="row d-flex justify-content-center">
 <form @submit.prevent="onSubmit">
     <div class="form-group">
-        <label for="username">Name:</label>
-        <input type="text" class="form-control" id="username" aria-describedby="name"
-            placeholder="Enter your name" required autocomplete="name" v-model="name">
-    </div>
-    <div class="form-group">
         <label for="amount">Amount per check:</label>
         <input type="number" class="form-control" id="amount" aria-describedby="amount" placeholder="$" v-model.number="amount">
     </div>
@@ -64,7 +59,7 @@ Vue.component('user-form', {
 `,
     data() {
         return {
-            name: null,
+
             amount: null,
             savings: null,
             payPeriod: null,
@@ -76,7 +71,6 @@ Vue.component('user-form', {
             this.bills.push(setBills);
         },
         onSubmit() {
-            const user = this.name;
             const amount = this.amount;
             const savings = this.savings;
             const payPeriod = this.payPeriod;
@@ -85,7 +79,6 @@ Vue.component('user-form', {
                 method: 'POST',
                 url: "/user/",
                 data: {
-                    user: user,
                     amount: amount,
                     savings: savings,
                     payPeriod: payPeriod,
@@ -104,8 +97,6 @@ Vue.component('user-form', {
 
     }
 });
-
-
 
 Vue.component('bills-form', {
     template: `
@@ -185,7 +176,66 @@ Vue.component('homepage', {
     `
 })
 
+Vue.component('login', {
+    template: `
+    <div>
+    <div class="row d-flex justify-content-center">
+        <form @submit.prevent="onSubmit">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                    placeholder="Enter email"  required v-model="email">
+            </div>
+            <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" aria-describedby="name"
+                placeholder="Enter your name" required autocomplete="name" v-model="name">
+        </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password" v-model="password">
+            </div>
+            <div class="form-group">
+            <label for="conPassword"> Re-enter password</label>
+            <input type="password" class="form-control" id="conPassword" placeholder="Re-enter password" v-model="conPassword">
+        </div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+    </div>
+</div>
+    `,
+    data() {
+        return {
+            email: null,
+            name: null,
+            password: null,
+            conPassword: null
+
+        }
+    },
+    methods: {
+        onSubmit() {
+            const email = this.email;
+            const name = this.name;
+            const password = this.password;
+            const conPassword = this.conPassword;
+            $.ajax({
+                method: 'POST',
+                url: "/signUp/",
+                data: {
+                    email: email,
+                    name: name,
+                    password: password,
+                    conPassword: conPassword
+                }
+            })
+        }
+    }
+
+})
+
 const app = new Vue({
     el: "#app"
 
 });
+

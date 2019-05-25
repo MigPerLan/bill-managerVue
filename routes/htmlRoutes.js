@@ -8,4 +8,7 @@ module.exports = app =>{
     app.get("/home", (req, res) =>{
         res.sendFile(path.join(__dirname, "../public/view/mainPage.html"))
     });
+    app.get("/login", (req,res)=>{
+        res.sendFile(path.join(__dirname,"../public/view/login.html"))
+    })
 }

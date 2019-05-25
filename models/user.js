@@ -1,29 +1,45 @@
 const moongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const Schema = moongoose.Schema;
 
 const UserSchema = new Schema({
-    user: {
+    email: {
         type: String,
-        required : true
-       
+        unique: true,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+
     },
     amount: {
-        type: Number,
-        required : true
-       
+        type: Number
+
     },
     savings: {
         type: Number
     },
     payPeriod: {
-        type: String,
-        required : true
-   
+        type: String
+
     },
     bills: [{}]
 
 
+});
+UserSchema.pre('save', function (next) {
+    const user = this;
+    bcrypt.hash(user.password, 10, function (err, hash) {
+        if (err) { return next(err); }
+        user.password = hash;
+        next();
+    })
 });
 
 const User = moongoose.model('User', UserSchema);
