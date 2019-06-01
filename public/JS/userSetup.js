@@ -177,40 +177,62 @@ Vue.component('homepage', {
 })
 
 Vue.component('login', {
+
     template: `
     <div>
     <div class="row d-flex justify-content-center">
-        <form @submit.prevent="onSubmit">
+        <form v-if="account" @submit.prevent="login">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                    placeholder="Enter email"  required v-model="logEmail">
+            </div>
+             <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password" v-model="logPass">
+            </div>
+                <button type="submit" class="btn btn-primary">Sign In</button>
+                <div class="row">
+                    <button type="button" class="btn btn-link" @click="accountchan">Don't have an account?</button>
+                </div>
+        </form>
+   
+        <form v-else @submit.prevent="onSubmit">
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
                     placeholder="Enter email"  required v-model="email">
             </div>
-            <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" aria-describedby="name"
-                placeholder="Enter your name" required autocomplete="name" v-model="name">
-        </div>
+                <div class="form-group">
+                 <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" aria-describedby="name"
+                    placeholder="Enter your name" required autocomplete="name" v-model="name">
+                </div>
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" placeholder="Password" v-model="password">
             </div>
             <div class="form-group">
-            <label for="conPassword"> Re-enter password</label>
-            <input type="password" class="form-control" id="conPassword" placeholder="Re-enter password" v-model="conPassword">
-        </div>
+                <label for="conPassword"> Re-enter password</label>
+                <input type="password" class="form-control" id="conPassword" placeholder="Re-enter password" v-model="conPassword">
+             </div>
             <button type="submit" class="btn btn-primary">Sign Up</button>
+            <div class="row">
+                <button type="button" class="btn btn-link" @click="accountchan">Already have an account?</button>
+            </div>
         </form>
     </div>
-</div>
+    </div>
     `,
     data() {
         return {
+            logEmail: null,
+            logPass: null,
             email: null,
             name: null,
             password: null,
-            conPassword: null
-
+            conPassword: null,
+            account: true
         }
     },
     methods: {
@@ -219,6 +241,8 @@ Vue.component('login', {
             const name = this.name;
             const password = this.password;
             const conPassword = this.conPassword;
+            const logEmail = this.logEmail;
+            const logPass = this.logPass;
             $.ajax({
                 method: 'POST',
                 url: "/signUp/",
@@ -227,8 +251,46 @@ Vue.component('login', {
                     name: name,
                     password: password,
                     conPassword: conPassword
+                },
+                success: function (response) {
+                    if (response.redirect) {
+                        window.location.href = response.redirect;
+                    }
+                    else {
+                        console.log(err);
+                    }
                 }
             })
+        },
+        login() {
+            const logEmail = this.logEmail;
+            const logPass = this.logPass;
+            $.ajax({
+                method: 'POST',
+                url: "/signUp/",
+                data: {
+                    logEmail: logEmail,
+                    logPass: logPass
+                },
+                success: function (response) {
+                    if (response.redirect) {
+                        window.location.href = response.redirect;
+                    }
+                    else {
+                        console.log(err);
+                    }
+                }
+            })
+        },
+        accountchan() {
+            if (this.account) {
+                this.account = false;
+
+            }
+            else {
+                this.account = true;
+
+            }
         }
     }
 
@@ -236,6 +298,5 @@ Vue.component('login', {
 
 const app = new Vue({
     el: "#app"
-
 });
 
